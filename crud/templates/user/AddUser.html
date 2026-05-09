@@ -1,0 +1,78 @@
+{% extends "layout/base.html" %}
+{% load static %}
+
+{% block 'title' %} Add User Page {% endblock 'title' %}
+{% block 'js' %}<script src="{% static "js/hide_toast.js" %}" defer></script>{% endblock 'js' %}
+
+{% block 'content' %}
+<form action="/user/add" method="post" enctype="multipart/form-data" class="max-w-3xl mx-auto">
+    {% csrf_token %}
+
+    <div class="grid grid-cols-2 gap-5">
+        <div>
+            <label for="full_name" class="block mb-2.5 text-sm font-medium text-heading">Full Name</label>
+            <input type="text" name="full_name" id="full_name" class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow placeholder:text-body" placeholder="Yunara Dela Cruz" required />
+        </div>
+
+        <div>
+            <label for="gender" class="block mb-2.5 text-sm font-medium text-heading">Gender</label>
+            <select name="gender" id="gender" class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow" required>
+                <option value="" disabled selected>Select gender</option>
+                {% for gender in genders %}
+                <option value="{{ gender.gender_id }}">{{ gender.gender }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div>
+            <label for="birth_date" class="block mb-2.5 text-sm font-medium text-heading">Birth Date</label>
+            <input type="date" name="birth_date" id="birth_date" class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow" required />
+        </div>
+
+        <div>
+            <label for="address" class="block mb-2.5 text-sm font-medium text-heading">Address</label>
+            <input type="text" name="address" id="address" class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow placeholder:text-body" placeholder="123 Poblacion St." required />
+        </div>
+
+        <div>
+            <label for="contact_number" class="block mb-2.5 text-sm font-medium text-heading">Contact Number</label>
+            <input type="text" name="contact_number" id="contact_number" class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow placeholder:text-body" placeholder="+63 912 345 6789" required />
+        </div>
+
+        <div>
+            <label for="email" class="block mb-2.5 text-sm font-medium text-heading">Email <span class="text-body font-normal">(optional)</span></label>
+            <input type="email" name="email" id="email" class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow placeholder:text-body" placeholder="yunara@example.com" />
+        </div>
+
+        <div class="col-span-2">
+            <label for="username" class="block mb-2.5 text-sm font-medium text-heading">Username</label>
+            <input type="text" name="username" id="username" class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow placeholder:text-body" placeholder="yunara123" required />
+        </div>
+
+        <div class="col-span-2 cursor-pointer">
+            <label for="profile_picture" class="cursor-pointer block mb-2.5 text-sm font-medium text-heading">Profile Picture <span class="cursor-pointer text-body font-normal">(optional)</span></label>
+            <input type="file" name="profile_picture" id="profile_picture" accept="image/*" class="cursor-pointer bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base block w-full px-3 py-2.5 shadow" />
+        </div>
+
+        <div class="mt-5 col-span-2 border-t border-default-medium"></div>
+        
+        <div>
+            <label for="password" class="block mb-2.5 text-sm font-medium text-heading">Password</label>
+            <input type="password" name="password" id="password" class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow placeholder:text-body" placeholder="••••••••" required />
+        </div>
+
+        <div>
+            <label for="confirm_password" class="block mb-2.5 text-sm font-medium text-heading">Confirm Password</label>
+            <input type="password" name="confirm_password" id="confirm_password" class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow placeholder:text-body" placeholder="••••••••" required />
+        </div>
+
+        
+    </div>
+
+    <button type="submit" class="mt-5 text-white bg-[#561C24] hover:bg-[#863856] transition-colors duration-200 cursor-pointer box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-md text-sm px-4 py-2.5 focus:outline-none">Submit</button>
+</form>
+{% endblock 'content' %}
+
+{% block 'toast' %}
+{% include 'include/Toast.html' %}
+{% endblock 'toast' %}

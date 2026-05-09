@@ -1,0 +1,26 @@
+{% extends "layout/base.html" %}
+{% load static %}
+
+{% block 'title' %} Add Gender Page {% endblock 'title' %}
+{% block 'js' %}<script src="{% static "js/hide_toast.js" %}" defer></script>{% endblock 'js' %}
+
+{% block 'content' %}
+<form action="/gender/add" method="post" class="max-w-sm mx-auto">
+{% csrf_token %}
+<div class="mb-5">
+    <label for="gender" class="block mb-2.5 text-sm font-medium text-heading">Gender</label>
+    <input type="text" name="gender" id="gender" class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow placeholder:text-body" placeholder="Male" required />
+</div>
+<button type="submit" class="text-white bg-[#561C24] hover:bg-[#863856] transition-colors duration-200 cursor-pointer box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-md text-sm px-4 py-2.5 focus:outline-none">Submit</button>
+</form>
+
+{% endblock 'content' %}
+
+
+{% block 'toast' %}
+{% include 'include/Toast.html' %}
+{% endblock 'toast' %}
+
+
+
+

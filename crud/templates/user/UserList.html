@@ -1,0 +1,26 @@
+{% extends "layout/base.html" %}
+{% load static %}
+
+{% block 'title' %} User List {% endblock 'title' %}
+{% block 'js' %}
+<script src="{% static "js/toggle_user_modal.js" %}" defer></script>
+<script src="{% static "js/hide_toast.js" %}" defer></script>
+<script src="{% static "js/load_more.js" %}" defer></script>
+<script src="{% static 'js/search_user.js' %}" defer></script>
+{% endblock 'js' %}
+
+
+{% block 'content' %}
+{% include "include/UserTable.html" %}
+{% include "include/UserEditModal.html" %}
+{% include "include/UserDeleteModal.html" %}
+{% endblock 'content' %}
+
+{% block 'toast' %}
+{% include 'include/Toast.html' %}
+{% endblock 'toast' %}
+
+
+
+
+

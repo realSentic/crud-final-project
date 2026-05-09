@@ -1,0 +1,30 @@
+<div class="relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base border border-default">
+    <table class="w-full text-sm rtl:text-right text-body text-center">
+        <thead class="bg-neutral-secondary-soft border-b border-default">
+            <tr>
+                <th scope="col" class="px-6 py-3 font-medium border-r border-default">Gender ID</th>
+                <th scope="col" class="px-6 py-3 font-medium border-r border-default">Gender</th>
+                <th scope="col" class="px-6 py-3 font-medium">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for gender in genders %}
+            <tr class="odd:bg-neutral-primary even:bg-neutral-secondary-soft border-b border-default">
+                <td class="px-6 py-4 font-medium text-heading whitespace-nowrap border-r border-default">{{ gender.gender_id }}</td>
+                <td class="px-6 py-4 border-r border-default">{{ gender.gender }}</td>
+                <td class="px-6 py-4">
+                    <div class="flex justify-center gap-2">
+                        <div class="bg-[#561C24] hover:bg-[#863856] transition-colors duration-200 cursor-pointer rounded-md text-white pr-5 pl-5 pt-2 pb-2">
+                            <button onclick="openModal(this)" data-id="{{ gender.gender_id }}" data-gender="{{ gender.gender }}" class="cursor-pointer font-medium text-fg-brand hover:no-underline">Edit</button>
+                        </div>
+
+                        <div class="bg-[#561C24] hover:bg-[#863856] transition-colors duration-200 cursor-pointer rounded-md text-white pr-5 pl-5 pt-2 pb-2">
+                            <button onclick="openDeleteModal(this)" data-id="{{ gender.gender_id }}" data-gender="{{ gender.gender }}" class="cursor-pointer font-medium text-fg-brand hover:no-underline">Delete</button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,92 @@
+<div id="user-modal" tabindex="-1" aria-hidden="true" class="hidden motion-opacity-in-0 fixed inset-0 z-50 flex justify-center items-center bg-black/60 backdrop-blur-sm">
+    <div class="relative p-4 w-full max-w-2xl max-h-full motion-translate-y-in-100 motion-blur-in-md">
+        <div class="relative rounded-xl shadow-2xl p-4 md:p-6 border" style="background-color: #C7B7A3; border-color: #6D2932;">
+            <div class="flex items-center justify-between pb-4 md:pb-5" style="border-bottom: 1px solid #6D2932;">
+                <h3 class="text-lg font-semibold" style="color: #561C24;">
+                    Update User
+                </h3>
+                <button type="button" onclick="toggleUserModal()" class="rounded-lg text-sm w-9 h-9 ms-auto inline-flex justify-center items-center transition-colors" style="color: #561C24;" onmouseover="this.style.backgroundColor='#6D2932'; this.style.color='#E8D8C4'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#561C24'">
+                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18 17.94 6M18 18 6.06 6"/></svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+            <form action="" method="POST" enctype="multipart/form-data" class="pt-4 md:pt-6">
+                {% csrf_token %}
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label for="full_name" class="block mb-2.5 text-sm font-medium" style="color: #561C24;">Full Name</label>
+                        <input type="text" name="full_name" id="full_name" class="text-sm rounded-lg block w-full px-3 py-2.5 shadow-xs outline-none focus:ring-2" style="background-color: #E8D8C4; border: 1px solid #6D2932; color: #561C24;" placeholder="John Doe" required />
+                    </div>
+                    <div>
+                        <label for="gender" class="block mb-2.5 text-sm font-medium" style="color: #561C24;">Gender</label>
+                        <select name="gender" id="gender" class="text-sm rounded-lg block w-full px-3 py-2.5 shadow-xs outline-none focus:ring-2" style="background-color: #E8D8C4; border: 1px solid #6D2932; color: #561C24;" required>
+                            <option value="" disabled>Select gender</option>
+                            {% for gender in genders %}
+                            <option value="{{ gender.gender_id }}">{{ gender.gender }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div>
+                        <label for="birth_date" class="block mb-2.5 text-sm font-medium" style="color: #561C24;">Birth Date</label>
+                        <input type="date" name="birth_date" id="birth_date" class="text-sm rounded-lg block w-full px-3 py-2.5 shadow-xs outline-none focus:ring-2" style="background-color: #E8D8C4; border: 1px solid #6D2932; color: #561C24;" required />
+                    </div>
+                    <div>
+                        <label for="address" class="block mb-2.5 text-sm font-medium" style="color: #561C24;">Address</label>
+                        <input type="text" name="address" id="address" class="text-sm rounded-lg block w-full px-3 py-2.5 shadow-xs outline-none focus:ring-2" style="background-color: #E8D8C4; border: 1px solid #6D2932; color: #561C24;" placeholder="123 Main St" required />
+                    </div>
+                    <div>
+                        <label for="contact_number" class="block mb-2.5 text-sm font-medium" style="color: #561C24;">Contact Number</label>
+                        <input type="text" name="contact_number" id="contact_number" class="text-sm rounded-lg block w-full px-3 py-2.5 shadow-xs outline-none focus:ring-2" style="background-color: #E8D8C4; border: 1px solid #6D2932; color: #561C24;" placeholder="+63 912 345 6789" required />
+                    </div>
+                    <div>
+                        <label for="email" class="block mb-2.5 text-sm font-medium" style="color: #561C24;">Email <span class="font-normal" style="color: #6D2932;">(optional)</span></label>
+                        <input type="email" name="email" id="email" class="text-sm rounded-lg block w-full px-3 py-2.5 shadow-xs outline-none focus:ring-2" style="background-color: #E8D8C4; border: 1px solid #6D2932; color: #561C24;" placeholder="john@example.com" />
+                    </div>
+                    <div>
+                        <label for="username" class="block mb-2.5 text-sm font-medium" style="color: #561C24;">Username</label>
+                        <input type="text" name="username" id="username" class="text-sm rounded-lg block w-full px-3 py-2.5 shadow-xs outline-none focus:ring-2" style="background-color: #E8D8C4; border: 1px solid #6D2932; color: #561C24;" placeholder="johndoe" required />
+                    </div>
+
+                    <div class="col-span-2">
+                        <label class="block mb-2.5 text-sm font-medium" style="color: #561C24;">
+                            Profile Picture
+                            <span class="font-normal" style="color: #6D2932;">
+                                (optional — leave blank to keep current)
+                            </span>
+                        </label>
+
+                        <div class="flex items-center gap-4">
+                            <img id="current-profile-pic" src="" class="w-12 h-12 rounded-full object-cover" style="border: 2px solid #6D2932; display:none;">
+
+                            <div class="flex flex-col gap-2 w-full">
+                                <input type="file" name="profile_picture" id="profile_picture" accept="image/*" class="cursor-pointer text-sm rounded-lg block w-full px-3 py-2.5 shadow-xs outline-none" style="background-color: #E8D8C4; border: 1px solid #6D2932; color: #561C24;" />
+
+                                <input type="hidden" name="remove_profile_picture" id="remove_profile_picture" value="0">
+
+                                <button type="button" onclick="removeProfilePicture()" class="cursor-pointer mt-5 font-medium leading-5 rounded-lg text-sm px-4 py-2.5 w-full transition-colors shadow-sm" style="background-color: #561C24; color: #E8D8C4; border: 1px solid #561C24;" onmouseover="this.style.backgroundColor='#6D2932'" onmouseout="this.style.backgroundColor='#561C24'">Remove Picture</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-span-2 mt-2 pt-4" style="border-top: 1px solid #6D2932;">
+                        <p class="text-sm font-medium mb-3" style="color: #561C24;">Change Password <span class="font-normal" style="color: #6D2932;">(optional — leave blank to keep current)</span></p>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label for="old_password" class="block mb-2.5 text-sm font-medium" style="color: #561C24;">Old Password</label>
+                                <input type="password" name="old_password" id="old_password" class="text-sm rounded-lg block w-full px-3 py-2.5 shadow-xs outline-none focus:ring-2" style="background-color: #E8D8C4; border: 1px solid #6D2932; color: #561C24;" placeholder="••••••••" />
+                            </div>
+                            <div>
+                                <label for="new_password" class="block mb-2.5 text-sm font-medium" style="color: #561C24;">New Password</label>
+                                <input type="password" name="new_password" id="new_password" class="text-sm rounded-lg block w-full px-3 py-2.5 shadow-xs outline-none focus:ring-2" style="background-color: #E8D8C4; border: 1px solid #6D2932; color: #561C24;" placeholder="••••••••" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="cursor-pointer mt-5 font-medium leading-5 rounded-lg text-sm px-4 py-2.5 w-full transition-colors shadow-sm" style="background-color: #561C24; color: #E8D8C4; border: 1px solid #561C24;" onmouseover="this.style.backgroundColor='#6D2932'" onmouseout="this.style.backgroundColor='#561C24'">
+                    Update User
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,51 @@
+{% extends "layout/base.html" %}
+{% load static %}
+
+{% block 'title' %}Dashboard Page{% endblock 'title' %}
+
+{% block 'content' %}
+
+<div class="font-bold text-4xl p-5" style="color: #561C24;">
+    <p>Welcome, {{ admin.username }}!</p>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 px-5 pb-5">
+    <!-- TOP LEFT: Total Users -->
+    <div class="rounded-xl p-6 border shadow-sm" style="background-color: #C7B7A3; border-color: #6D2932;">
+        <p class="text-sm font-medium mb-1" style="color: #6D2932;">Total Users</p>
+        <p class="text-5xl font-bold" style="color: #561C24;">{{ user_count }}</p>
+    </div>
+
+    <!-- TOP RIGHT: Total Genders -->
+    <div class="rounded-xl p-6 border shadow-sm" style="background-color: #561C24; border-color: #6D2932;">
+        <p class="text-sm font-medium mb-1" style="color: #C7B7A3;">Total Genders</p>
+        <p class="text-5xl font-bold" style="color: #E8D8C4;">{{ gender_count }}</p>
+    </div>
+
+    <!-- BOTTOM LEFT: Male/Female Ratio -->
+    <div class="rounded-xl p-6 border shadow-sm" style="background-color: #561C24; border-color: #6D2932;">
+        <p class="text-sm font-medium mb-4" style="color: #C7B7A3;">Gender Ratio</p>
+        <div class="flex flex-wrap gap-6">
+            {% for ratio in gender_ratios %}
+            <div class="flex flex-col">
+                <span class="text-xs font-bold uppercase tracking-wider" style="color: #C7B7A3;">{{ ratio.name }}</span>
+                <div class="flex items-baseline gap-1">
+                    <span class="text-3xl font-black" style="color: #E8D8C4;">{{ ratio.percentage }}%</span>
+                </div>
+            </div>
+            {% empty %}
+            <p class="text-sm" style="color: #E8D8C4;">No data</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- BOTTOM RIGHT: Newest User -->
+    <div class="rounded-xl p-6 border shadow-sm" style="background-color: #C7B7A3; border-color: #6D2932;">
+        <p class="text-sm font-medium mb-1" style="color: #6D2932;">Newest User</p>
+        <p class="text-3xl font-bold truncate" style="color: #561C24;">
+            {% if newest_user %}{{ newest_user.full_name }}{% else %}No users yet{% endif %}
+        </p>
+    </div>
+</div>
+
+{% endblock 'content' %}

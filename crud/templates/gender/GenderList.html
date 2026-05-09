@@ -1,0 +1,24 @@
+{% extends "layout/base.html" %}
+{% load static %}
+
+{% block 'title' %} Gender List {% endblock 'title' %}
+{% block 'js' %}
+<script src="{% static "js/toggle_modal.js" %}" defer></script>
+<script src="{% static "js/hide_toast.js" %}" defer></script>
+{% endblock 'js' %}
+
+
+{% block 'content' %}
+{% include "include/GenderTable.html" %}
+{% include "include/Modal.html" %}
+{% include "include/DeleteModal.html" %}
+{% endblock 'content' %}
+
+{% block 'toast' %}
+{% include 'include/Toast.html' %}
+{% endblock 'toast' %}
+
+
+
+
+

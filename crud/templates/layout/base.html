@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/output.css' %}">
+    
+    <title>{% block 'title' %}{% endblock 'title' %}</title>
+    {% block 'js' %}{% endblock 'js' %}
+    <script src="{% static "js/dropdown.js" %}" defer></script>
+</head>
+<body>
+    {% include "include/SideBar.html" %}
+
+    <main class="p-4 sm:ml-64 mt-16 bg-[#E8D8C4] min-h-screen text-[#561C24]">
+  
+    <div class="p-4 border border-[#6D2932] rounded-md bg-[#C7B7A3]/40">
+        {% block 'content' %}{% endblock 'content' %}
+    </div>
+
+    <div>
+        {% block 'toast' %}{% endblock 'toast' %}
+    </div>
+
+    </main>
+</body>
+</html>

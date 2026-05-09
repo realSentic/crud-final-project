@@ -1,0 +1,26 @@
+<div id="modal" tabindex="-1" aria-hidden="true" class="hidden motion-opacity-in-0 fixed inset-0 z-50 flex justify-center items-center bg-black/60 backdrop-blur-sm">
+    <div class="relative p-4 w-full max-w-md max-h-full motion-translate-y-in-100 motion-blur-in-md">
+
+        <div class="relative rounded-xl shadow-2xl p-4 md:p-6 border" style="background-color: #C7B7A3; border-color: #6D2932;">
+            <div class="flex items-center justify-between pb-4 md:pb-5" style="border-bottom: 1px solid #6D2932;">
+                <h3 class="text-lg font-semibold" style="color: #561C24;">
+                    Update Gender
+                </h3>
+                <button type="button" onclick="toggleModal()" class="rounded-lg text-sm w-9 h-9 ms-auto inline-flex justify-center items-center transition-colors" style="color: #561C24;" onmouseover="this.style.backgroundColor='#6D2932'; this.style.color='#E8D8C4'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#561C24'">
+                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18 17.94 6M18 18 6.06 6"/></svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+            <form action="" method="POST" class="pt-4 md:pt-6">
+                {% csrf_token %}
+                <div class="mb-4">
+                    <label for="gender" class="block mb-2.5 text-sm font-medium" style="color: #561C24;">Gender</label>
+                    <input type="text" name="gender" id="gender" value="{{ gender.gender }}" class="text-sm rounded-lg block w-full px-3 py-2.5 shadow-xs outline-none focus:ring-2" style="background-color: #E8D8C4; border: 1px solid #6D2932; color: #561C24;" placeholder="Female" required />
+                </div>
+                <button type="submit" class="cursor-pointer font-medium leading-5 rounded-lg text-sm px-4 py-2.5 w-full mb-3 transition-colors shadow-sm" style="background-color: #561C24; color: #E8D8C4; border: 1px solid #561C24;" onmouseover="this.style.backgroundColor='#6D2932'" onmouseout="this.style.backgroundColor='#561C24'">
+                    Update Gender
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

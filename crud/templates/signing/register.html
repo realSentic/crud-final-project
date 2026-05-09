@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Page</title>
+    <link rel="stylesheet" href="{% static 'css/output.css' %}">
+    <script src={% static 'js/hide_toast.js' %} defer></script>
+</head>
+<body>
+    <div class="flex items-center justify-center min-h-screen bg-[#E8D8C4]">
+        <form method="POST" class="p-8 rounded-lg shadow-xl border bg-[#C7B7A3] border-[#6D2932] w-96">
+            {% csrf_token %}
+            <h2 class="text-2xl font-bold mb-6 text-[#561C24]">Register</h2>
+
+            {% for field in form %}
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-[#561C24] mb-1">{{ field.label }}</label>
+                {{ field }}
+                {% if field.help_text and field.name == 'username' %}
+                    <p style="color:#6D2932; font-size:11px;" class="mt-1">{{ field.help_text }}</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+
+            <button type="submit" class="w-full mt-4 p-2 bg-[#561C24] text-white rounded hover:bg-[#6D2932] transition-colors">
+                Register
+            </button>
+
+            <span class="text-[#561C24]">Have an account? </span> <span class="hover:underline text-[#561C24] cursor-pointer"><a href="{% url 'login' %}">Click Here!</a></span>
+        </form>
+
+        {% include "include/Toast.html" %}
+    </div>
+</body>
+</html>
